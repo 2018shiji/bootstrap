@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<head>
+    <meta charset="utf-8">
+    <title>ajax</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div id="myDiv"><h2>使用AJAX修改该文本内容</h2></div>
+<tr th:each="item : ${articleList}">
+    <td>
+        <button type="button" th:onclick="testAjax([[${item.url}]],[[${item.title}]])" class="btn btn-default dropdown-toggle" data-toggle="dropdown">审核</button>
+        <a href="https://www.baidu.com/" th:onclick="testLabel()">点击</a>
+        <form class="bs-example bs-example-form" role="form">
+            <div class="input-group">
+                <input type="text" th:onchange="testTxtFld([[${item.title}]])" class="form-control">
+                <span class="input-group-addon"></span>
+            </div>
+        </form>
+    </td>
+
+</tr>
+</body>
+<script>
+    function testAjax(url,title) {
+        var args = {webUrl:url, webTitle:title};
+        $.ajax({
+            url:"ajaxredirect",
+            type:"POST",
+            data:args,
+            success:function(result){
+                console.log(result);
+            }
+        });
+    }
+</script>
+
+<script>
+    function testLabel(){
+        console.log("111");
+    }
+</script>
+
+<script>
+    function testTxtFld(str){
+        console.log("222");
+        if(str=="H5 前端性能测试实践"){
+            console.log("333");
+        }else{
+            console.log("444");
+        }
+    }
+</script>
+
+</html>

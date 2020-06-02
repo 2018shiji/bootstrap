@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<head>
+    <meta charset="utf-8">
+    <title>管理员登录</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<tr th:each="item : ${articleList}">
+    <td>
+        <button type="button" th:onclick="check([[${item.title}]])">审核</button>
+    </td>
+</tr>
+</body>
+
+<script>
+    function check(title){
+        console.log("-1-1-1-1-1");
+        $.ajax({
+            type:"POST",
+            data:{id: title},
+            url: "/index",
+            //success去掉之后无法回调
+            success:function(data){
+                if(data.id == "H5 前端性能测试实践"){
+                    console.log("000000");
+                }else{
+                    console.log("111111");
+                    alert("认证失败");
+                }
+                console.log("222222");
+            },
+        });
+    }
+
+</script>
+
+</html>
